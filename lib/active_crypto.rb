@@ -1,4 +1,5 @@
 require "ezcrypto.rb"
+require "active_support/rescuable"
 module ActiveCrypto # :nodoc:
     
     def self.append_features(base)  #:nodoc:

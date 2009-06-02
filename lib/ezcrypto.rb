@@ -1,7 +1,7 @@
-require 'openssl'
+#require 'openssl'
+require 'rubygems/gem_openssl'
 require 'digest/sha2'
 require 'digest/sha1'
-require 'base64'
 
 module EzCrypto #:nodoc:
 
@@ -88,7 +88,7 @@ Create key generated from the given password and salt
 Initialize the key with Base64 encoded key data.
 =end
     def self.decode(encoded,options = {})
-      Key.new(Base64.decode64(encoded),options)
+      Key.new(encoded.unpack('m')[0],options)
     end
 
 =begin rdoc
@@ -161,7 +161,7 @@ the generate and with_password methods. This is not yet 100% complete.
 returns the Base64 encoded key.
 =end
     def encode
-      Base64.encode64(@raw).chop
+      [@raw].pack('m')
     end
 
 =begin rdoc
@@ -187,7 +187,7 @@ Encrypts the data and returns it in encrypted binary form.
 Encrypts the data and returns it in encrypted Base64 encoded form.
 =end
     def encrypt64(data)
-      Base64.encode64(encrypt(data))
+      [encrypt(data)].pack('m')
     end
 
 =begin rdoc
@@ -211,7 +211,7 @@ Decrypts the data passed to it in binary format.
 Decrypts a Base64 formatted string
 =end
     def decrypt64(data)
-      decrypt(Base64.decode64(data))
+      decrypt(data.unpack('m')[0])
     end
     
 =begin rdoc
@@ -227,7 +227,7 @@ Allows keys to be unmarshalled
     def marshal_load(s) 
        a, r = s.split '$$$'
        @algorithm = a
-       @raw = Base64.decode64(r)
+       @raw = r.unpack('m')[0]
     end
 
 =begin rdoc
@@ -291,7 +291,7 @@ Load a key from a yaml_file generated via Key#store.
       require 'yaml'
       hash = YAML::load_file(filename)
       req = proc { |k| hash[k] or raise "Missing element #{k} in #{filename}" }
-      key = self.new Base64.decode64(req.call(:key)) , :algorithm => req.call(:algorithm)
+      key = self.new req.call(:key).unpack('m')[0] , :algorithm => req.call(:algorithm)
       return key
     end
 
@@ -603,7 +603,7 @@ Warning! The interface may change.
   
 =end
     def self.digest64(data,size=16)
-      Base64.encode64(digest(data,size))
+      [digest(data,size)].pack('m')
     end
 	end
 
