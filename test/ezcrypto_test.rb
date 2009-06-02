@@ -96,7 +96,7 @@ class EzCryptoTest < Test::Unit::TestCase
     # default behaviour: remove clearfile, append '.ez' suffix  
     cryptfile = key.encrypt_file(clearfile)    
     assert_equal cryptfile, clearfile + ".ez"
-    #assert_file_not_exists clearfile
+    assert_file_not_exists clearfile 
     assert_file_exists cryptfile 
     assert_file_contains cryptfile, key.encrypt(CLEAR_TEXT)
 
