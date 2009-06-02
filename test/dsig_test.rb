@@ -3,7 +3,6 @@ $:.unshift(File.dirname(__FILE__) + "/../lib/")
 require 'test/unit'
 require 'fileutils'
 require 'ezsig'
-require 'base64'
 
 class EzCryptoTest < Test::Unit::TestCase
 

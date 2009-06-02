@@ -4,6 +4,7 @@ require 'test/unit'
 require 'rubygems'
 require 'action_pack'
 require 'active_record'
+require "active_support/deprecation"
 #require 'active_support/binding_of_caller'
 #require 'active_support/breakpoint'
 

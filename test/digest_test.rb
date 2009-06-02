@@ -2,7 +2,6 @@ $:.unshift(File.dirname(__FILE__) + "/../lib/")
 
 require 'test/unit'
 require 'ezcrypto'
-require 'base64'
 require 'digest/sha1'
 
 class DigestTest < Test::Unit::TestCase
@@ -18,7 +17,7 @@ class DigestTest < Test::Unit::TestCase
   
   def test_digest64
     ["hello","","test"].each do |data|
-      assert_equal Base64.encode64(Digest::SHA1.digest(data)[0..15]),EzCrypto::Digester.digest64(data)
+      assert_equal [Digest::SHA1.digest(data)[0..15]].pack('m'),EzCrypto::Digester.digest64(data)
     end    
   end
   
