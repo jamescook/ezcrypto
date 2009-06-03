@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name     = "ezcrypto"
-  s.version  = "0.7.2"
-  s.date     = "2009-3-10"
+  s.version  = "0.7.2.1"
+  s.date     = "2009-6-01"
   s.summary  = "EzCrypto - Simplified Crypto Library"
   s.email    = "pelle@stakeventures.com"
   s.homepage = "http://ezcrypto.rubyforge.org"
